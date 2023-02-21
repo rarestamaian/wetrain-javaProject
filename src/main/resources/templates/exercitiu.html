@@ -1,0 +1,48 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/head.html}"></div>
+<div  xmlns:th="http://www.thymeleaf.org" th:replace="~{/navbar.html}"></div>
+
+<div xmlns:th="http://www.thymeleaf.org"  class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <form th:action="@{/update_exercitiu/{id}(id=${exercitiu.id})}" method="post" th:object="${exercitiu}">
+                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="mb-2 text-primary">Detalii exercitiu</h6>
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description</label>
+                                        <input name="descripiton" type="text" class="form-control" id="description"
+                                               th:value="*{description}" th:field="*{description}"/>
+                                    </div>
+                                </div>
+<!--                                <input type="hidden" th:field="*{antrenamente}"/>-->
+                                <div class="col-sm-6 col-12">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" name="name" class="form-control" id="name"
+                                               th:value="*{name}" th:field="*{name}"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="text-end">
+                                        <button type="submit" id="cancel" name="cancel" class="btn btn-secondary">Cancel</button>
+                                        <button type="submit" id="update_exercitiu" name="update_exercitiu" class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div> <!-- div row-->
+</div>  <!-- div container-->
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/footer.html:: footer}"></div>

@@ -1,0 +1,68 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/head.html}"></div>
+<body class="bg-image">
+<div  xmlns:th="http://www.thymeleaf.org" th:replace="~{/navbar.html}"></div>
+<div xmlns:th="http://www.thymeleaf.org" class="container mb-2">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card card-login">
+      <div class="card-header">
+        <h3>Sign In</h3>
+        <!-- <div class="d-flex justify-content-end social_icon">
+            <span><i class="fab fa-facebook-square"></i></span>
+            <span><i class="fab fa-google-plus-square"></i></span>
+            <span><i class="fab fa-twitter-square"></i></span>
+        </div>login using google/facebook -->
+      </div>
+      <div class="card-body">
+        <div th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}">
+          You have been logged out.
+        </div>
+        <form method="post" th:action="@{/login}">
+          <div class="input-group mb-2">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+            <input type="text" class="form-control" placeholder="username" name="username">
+          </div>
+          <div class="input-group mb-2">
+            <span class="input-group-text"><i class="fas fa-key"></i></span>
+            <input type="password" class="form-control" placeholder="password" name="password">
+          </div>
+          <div class="row align-items-center remember">
+            <input type="checkbox">Remember Me
+          </div>
+<!--          <div class="form-check">-->
+<!--            <input class="form-check-input" type="radio" name="type" checked id="sportiv" value="SPORTIV">-->
+<!--            <label class="form-check-label text-light" for="sportiv">-->
+<!--              Sportiv-->
+<!--            </label>-->
+<!--          </div>-->
+<!--          <div class="form-check">-->
+<!--            <input class="form-check-input" type="radio" name="type" id="antrenor" value="ANTRENOR">-->
+<!--            <label class="form-check-label text-light" for="antrenor">-->
+<!--              Antrenor-->
+<!--            </label>-->
+<!--          </div>-->
+<!--          <div class="form-check">-->
+<!--            <input class="form-check-input" type="radio" name="type" id="admin" value="Admin">-->
+<!--            <label class="form-check-label text-light" for="admin">-->
+<!--              Admin-->
+<!--            </label>-->
+<!--          </div>-->
+      <div>
+        <input type="submit" value="Login" name="login" class="btn float-end login_btn">
+      </div>
+      </form>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex justify-content-center links">
+        Don't have an account?<a th:href="@{/register}">Sign Up</a>
+      </div>
+      <div class="d-flex justify-content-center">
+        <a href="#">Forgot your password?</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/footer.html:: footer}"></div>

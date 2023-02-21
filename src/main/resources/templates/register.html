@@ -1,0 +1,56 @@
+<!--HEAD-->
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/head.html}"></div>
+<body class="bg-image">
+<!--NAVBAR-->
+<div  xmlns:th="http://www.thymeleaf.org" th:replace="~{/navbar.html}"></div>
+<div xmlns:th="http://www.thymeleaf.org"  class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card card-login">
+      <div class="card-header">
+        <h3>Sign Up</h3>
+        <!-- <div class="d-flex justify-content-end social_icon">
+            <span><i class="fab fa-facebook-square"></i></span>
+            <span><i class="fab fa-google-plus-square"></i></span>
+            <span><i class="fab fa-twitter-square"></i></span>
+        </div> integreaza google/facebook login-->
+      </div>
+      <div class="card-body">
+        <form name="formular" method="post" th:action="@{/register-user}" th:object="${user}" role="form">
+          <div class="input-group mb-2">
+            <span class="input-group-text"><i class="fas fa-at"></i></span>
+            <input type="email" class="form-control" placeholder="email" name="email" th:field="*{email}" required>
+          </div>
+          <div class="input-group mb-2">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+            <input type="text" class="form-control" placeholder="username" name="username" th:field="*{username}" required>
+          </div>
+          <div class="input-group mb-2">
+            <span class="input-group-text"><i class="fas fa-key"></i></span>
+            <input type="password" class="form-control" placeholder="password" name="password" th:field="*{password}" required>
+          </div>
+          <div class="input-group mb-2">
+            <span class="input-group-text"><i class="fas fa-key"></i></span>
+            <input type="password" class="form-control" placeholder="confirm password" name="confirm">
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="type" checked id="sportiv" value="SPORTIV" th:field="*{role}">
+            <label class="form-check-label text-light" for="sportiv">
+              Sportiv
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="type" id="antrenor" value="ANTRENOR" th:field="*{role}">
+            <label class="form-check-label text-light" for="antrenor">
+              Antrenor
+            </label>
+          </div>
+          <div class="">
+            <button type="submit" name="sign_up" class="btn float-end login_btn"> Sign up</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--FOOTER-->
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/footer.html}"></div>

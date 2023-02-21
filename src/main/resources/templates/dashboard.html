@@ -1,0 +1,106 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/head.html}"></div>
+<div  xmlns:th="http://www.thymeleaf.org" th:replace="~{/navbar.html}"></div>
+
+<div>dashboard</div>
+<div xmlns:th="http://www.thymeleaf.org"  class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 text-center">
+            <h3>Utilizatori</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Email</th>
+                    <th scope="col">Username</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user: ${users}">
+                    <td th:text="${user.email}"></td>
+                    <td>
+                        <a th:href="@{/profile/{id}(id=${user.id})}">
+                            <span th:text="${user.username}"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-12 col-md-6 text-center">
+            <h3>Echipe</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Nume</th>
+                    <th scope="col">Descriere</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="team: ${teams}">
+                    <td >
+                        <a th:href="@{/team/{id}(id=${team.id})}">
+                            <span th:text="${team.name}"></span>
+                        </a>
+                    </td>
+                    <td th:text="${team.description}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> <!-- div row-->
+</div>  <!-- div container-->
+<div xmlns:th="http://www.thymeleaf.org"  class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 text-center">
+            <h3>Antrenamente</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nume</th>
+                        <th scope="col">Descriere</th>
+                        <th scope="col"></th> <!--coloana de pus editare etc-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="antre: ${antrenamente}">
+                        <td >
+                            <a th:href="@{/antrenament/{id}(id=${antre.id})}">
+                                <span th:text="${antre.name}"></span>
+                            </a>
+                        </td>
+                        <td th:text="${antre.description}"></td>
+                    </tr>
+                </tbody>
+            </table>';
+        </div> <!-- column div-->
+        <div class="col-12 col-md-6 text-center">
+            <h3>Exercitii</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nume</th>
+                        <th scope="col">Descriere</th>
+                        <th scope="col"></th> <!--coloana de pus editare etc-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="exercitiu: ${exercitii}">
+                        <td>
+                            <a th:href="@{/exercitiu/{id}(id=${exercitiu.id})}">
+                                <span th:text="${exercitiu.name}"></span>
+                            </a>
+                        </td>
+                        <td th:text="${exercitiu.description}"></td>
+                        <td>
+                            <a th:href="@{/sterge_exercitiu/{id}(id=${exercitiu.id})}">
+                            <button id="sterge_echipa" value="" type="button" class="btn btn-danger sterge_echipa" data-bs-toggle="modal" data-bs-target="#stergeEchipa">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>';
+        </div> <!-- column div-->
+    </div> <!-- row div-->
+</div> <!--container div-->
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/footer.html:: footer}"></div>

@@ -1,0 +1,59 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/head.html}"></div>
+<div  xmlns:th="http://www.thymeleaf.org" th:replace="~{/navbar.html}"></div>
+
+<div>profile</div>
+<h3 xmlns:th="http://www.thymeleaf.org" th:text="${user.username}">rvfds</h3>
+<body>
+<div xmlns:th="http://www.thymeleaf.org"  class="container">
+    <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="card text-center">
+                <div class="card-body">
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="card-img-top profile-img">
+                    <h5 class="user-name card-text"  th:text="${user.username}"></h5>
+                    <h6 class="user-email card-text"  th:text="${user.email}"></h6>
+                </div>
+            </div>
+        </div>
+        <form th:action="@{/update_profile/{id}(id=${user.id})}" method="post" th:object="${user}">
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="mb-2 text-primary">Personal Details</h6>
+                            </div>
+                            <input type="hidden" th:field="*{username}"/>
+                            <input type="hidden" th:field="*{password}"/>
+                            <input type="hidden" th:field="*{role}"/>
+                            <input type="hidden" th:field="*{email}"/>
+                            <div class="col-sm-6 col-12">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Description</label>
+                                    <input name="descripiton" type="text" class="form-control" id="description"
+                                           th:value="*{description}" th:field="*{description}"/>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" name="phone" pattern="[0-9]{10}" class="form-control" id="phone"
+                                           th:value="*{phone}" th:field="*{phone}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="text-end">
+                                    <button type="submit" id="cancel" name="cancel" class="btn btn-secondary">Cancel</button>
+                                    <button type="submit" id="update_profile" name="update_profile" class="btn btn-primary">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/footer.html:: footer}"></div>
