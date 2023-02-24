@@ -4,12 +4,15 @@ import com.example.wetrain.models.Antrernament;
 import com.example.wetrain.models.Echipa;
 import com.example.wetrain.repositories.AntrenamentRepository;
 import com.example.wetrain.repositories.EchipaRepository;
+import com.example.wetrain.repositories.ExercitiuRepository;
+import com.example.wetrain.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -19,9 +22,13 @@ import java.util.Optional;
 @Controller
 public class TeamController {
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private EchipaRepository echipaRepository;
     @Autowired
     private AntrenamentRepository antrenamentRepository;
+    @Autowired
+    private ExercitiuRepository exercitiuRepository;
     @GetMapping("/team/{id}")
     public String get_team_details(@PathVariable("id") long id, Model model) {// findById returns an Optional de care tre sa scapi sa ramana foar obiectul User asa ca mai jos sau poti folosi Optional.get()
         Optional<Echipa> echipa_optional = echipaRepository.findById(id);
@@ -61,5 +68,25 @@ public class TeamController {
         List<Antrernament> antrenamente = antrenamentRepository.findAntrenamenteByEchipeId(id);
         model.addAttribute("antrenamente", antrenamente);
         return "team";
+    }
+    @GetMapping("/create_team")
+    public String create_team(Model model) {
+        Echipa team = new Echipa();
+        model.addAttribute("team", team);
+        System.out.println(team.toString());
+        return "create_team";
+    }
+    @PostMapping(value = "/create_team", params = "create_team")
+    public String create_team_post(@Valid @ModelAttribute Echipa team,
+                                     BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            return "dashboard";
+        }
+        model.addAttribute("teams", echipaRepository.findAll());
+        model.addAttribute("antrenamente", antrenamentRepository.findAll());
+        model.addAttribute("exercitii", exercitiuRepository.findAll());
+        model.addAttribute("users", userRepository.findAll());
+        echipaRepository.save(team);
+        return "dashboard";
     }
 }

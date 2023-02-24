@@ -1,0 +1,21 @@
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/head.html}"></div>
+<div  xmlns:th="http://www.thymeleaf.org" th:replace="~{/navbar.html}"></div>
+<body  xmlns:th="http://www.thymeleaf.org" >
+<div class="container col-12 pb-5">
+<form method='post' th:action="@{/create_team}"
+      th:object="${team}" >
+    <input type="text" th:field="*{id}" hidden/>
+  <div class="input-group mb-2">
+    <input type="text" class="form-control" placeholder="name"
+           name="name"  th:field="*{name}"/>
+  </div>
+  <div class="input-group mb-2">
+    <input type="text" class="form-control" placeholder="scurta descriere"
+           name="description" maxlength="100"   th:field="*{description}"/>
+  </div>
+  <div class="mb-3">
+    <input type="submit" value="create_team" name="create_team" class="btn float-end login_btn">
+  </div>
+</form>
+</div>
+<div xmlns:th="http://www.thymeleaf.org" th:replace="~{/footer.html:: footer}"></div>

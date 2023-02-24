@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Antrernament {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO) // identity face si primary key  la crearea tabelului
     private long id;
     @Column(nullable = false)
     private String name;
@@ -83,7 +83,8 @@ public class Antrernament {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-//                ", echipe=" + echipe +
+                ", echipe=" + echipe +
+                ", exercitii=" + exercitii +
                 '}';
     }
 }
