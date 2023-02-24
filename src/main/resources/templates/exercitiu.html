@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div sec:authorize="!hasRole('ROLE_SPORTIV')" class="row">
                                 <div class="col-12">
                                     <div class="text-end">
                                         <button type="submit" id="cancel" name="cancel" class="btn btn-secondary">Cancel</button>

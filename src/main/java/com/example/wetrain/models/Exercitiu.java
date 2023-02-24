@@ -1,6 +1,7 @@
 package com.example.wetrain.models;
 
 import com.example.wetrain.repositories.AntrenamentRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class Exercitiu {
     private String name;
 
     private String description;
-
+    @JsonIgnore // this annotation stops the circular reference problem
     @ManyToMany(mappedBy = "exercitii") //this is the raget side
     private List<Antrernament> antrenamente = new ArrayList();
     public Exercitiu() {

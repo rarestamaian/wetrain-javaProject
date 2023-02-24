@@ -9,6 +9,7 @@ import com.example.wetrain.repositories.ExercitiuRepository;
 import com.example.wetrain.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -89,4 +90,10 @@ public class AntrenamentController {
         model.addAttribute("users", userRepository.findAll());
         return "redirect:/dashboard";
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')") // it s a get request so even though the link is absent for other roles, they could still delete users by writing the url. this prevents it
+    @GetMapping(value = "/sterge_antrenament/{id}")
+    public String sterge_antrenament(@PathVariable("id") long id, Model model) {// findById returns an Optional de care tre sa scapi sa ramana foar obiectul User asa ca mai jos sau poti folosi Optional.get()
+        antrenamentRepository.deleteById(id);
+        return "redirect:/";
     }
+}

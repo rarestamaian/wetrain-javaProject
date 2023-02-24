@@ -17,12 +17,12 @@ public class TeamService {
     @Autowired
     AntrenamentRepository antrenamentRepository;
     public Echipa assignAntreToEchipa(Long teamId, Long antreId) {// functie care adauga un antrenament un antrenament deja existent la o echipa deja existenta
-        List<Antrernament> antrenamente = null;
+        List<Antrernament> antrenamentele_echipei = null;
         Echipa echipa = echipaRepository.findById(teamId).get();
         Antrernament antrenament = antrenamentRepository.findById(antreId).get();
-        antrenamente =  echipa.getAntrenamente();
-        antrenamente.add(antrenament);
-        echipa.setAntrenamente(antrenamente);
+        antrenamentele_echipei =  echipa.getAntrenamente();
+        antrenamentele_echipei.add(antrenament);
+        echipa.setAntrenamente(antrenamentele_echipei);
         return echipaRepository.save(echipa);
     }
 }

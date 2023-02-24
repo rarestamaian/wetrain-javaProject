@@ -1,5 +1,6 @@
 package com.example.wetrain.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ public class Echipa {
             inverseJoinColumns = { @JoinColumn(name = "antrenament_id") })
     private List<Antrernament> antrenamente = new ArrayList();//list is ordered vs Set is unordered and distinct elements
 
+    @JsonIgnore// this annotation stops the circular reference problem
+    @ManyToMany(mappedBy = "echipe") //this is the raget side
+    private List<User> utilizatori = new ArrayList();
     public List<Antrernament> getAntrenamente() {
         return antrenamente;
     }

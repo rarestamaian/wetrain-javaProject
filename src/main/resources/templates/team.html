@@ -30,7 +30,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
+            <div sec:authorize="!hasRole('ROLE_SPORTIV')" class="row">
               <div class="col-12">
                 <div class="text-end">
                   <button type="submit" id="cancel" name="cancel" class="btn btn-secondary">Cancel</button>
@@ -42,6 +42,21 @@
         </div>
       </div>
     </form>
+<!--adaugare antrenamente la echipa-->
+    <div sec:authorize="!hasRole('ROLE_SPORTIV')" class="row">
+      <h5>Adauga antrenamente in aceasta echipa</h5>
+      <form th:action="@{/adauga_antre_in_echipa/{id}(id=${team.id})}" method="post">
+<!--            th:object="${antre_de_adaugat}">-->
+        <select id="antrenament" class="form-select mb-2" name="id_antrenament">
+          <option selected>Selecteaza antrenamentul</option>
+          <option th:each="antre: ${antrenamente_toate}" th:value="${antre.id}" th:text="${antre.name}"></option>
+        </select>
+        <button type="submit" id="adauga_antrenament_in_echipa" value="adauga_antrenament_in_echipa"
+                class="btn float-end login_btn" name="adauga_antrenament_in_echipa">
+          Adauga</button>
+      </form>
+    </div>
+<!--    end adaugare antrenamente la echipa-->
   </div>
   <div class="row">
     <div class="col-12 text-center">

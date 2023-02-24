@@ -21,6 +21,11 @@ public class User {
     @Column(nullable = false)
     private String email;
     //    private int active;
+    @ManyToMany
+    @JoinTable(name = "users_teams", // this is the owner side bc here we configure the ralationship
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "team_id") })
+    private List<Echipa> echipe = new ArrayList();//list is ordered vs Set is unordered and distinct elements
     public void setId(long id) {
         this.id = id;
     }

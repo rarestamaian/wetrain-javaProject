@@ -6,13 +6,15 @@
     <div sec:authorize="hasRole('ROLE_SPORTIV')" th:text="${user}"></div>
     <div  th:text="${user}"></div>
     <div class="row">
-        <div class="col-12 col-md-6 text-center">
+        <div  sec:authorize="hasRole('ROLE_ADMIN')" class="col-12 col-md-6 text-center">
             <h3>Utilizatori</h3>
             <table class="table">
                 <thead>
                 <tr>
                     <th scope="col">Email</th>
                     <th scope="col">Username</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col"></th> <!--coloana de pus editare etc-->
                 </tr>
                 </thead>
                 <tbody>
@@ -23,17 +25,31 @@
                             <span th:text="${user.username}"></span>
                         </a>
                     </td>
+                    <td th:text="${user.role}"></td>
+                    <div th:if="${user.role} != 'ADMIN'">
+                        <td>
+                            <a th:href="@{/sterge_user/{id}(id=${user.id})}">
+                                <button id="sterge_user" value="" type="button" class="btn btn-danger sterge_echipa" data-bs-toggle="modal" data-bs-target="#stergeEchipa">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </a>
+                        </td>
+                    </div>
+                    <div th:unless="${user.role} != 'ADMIN'">
+                        <td></td>
+                    </div>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-12 col-md-6 text-center">
+        <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-12 col-md-6 text-center">
             <h3>Echipe</h3>
             <table class="table">
                 <thead>
                 <tr>
                     <th scope="col">Nume</th>
                     <th scope="col">Descriere</th>
+                    <th scope="col"></th> <!--coloana de pus editare etc-->
                 </tr>
                 </thead>
                 <tbody>
@@ -44,16 +60,46 @@
                         </a>
                     </td>
                     <td th:text="${team.description}"></td>
+                    <td>
+                        <a th:href="@{/sterge_echipa/{id}(id=${team.id})}">
+                            <button id="sterge_echipa" value="" type="button" class="btn btn-danger sterge_echipa" data-bs-toggle="modal" data-bs-target="#stergeEchipa">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
             <a th:href="@{/create_team}">Creaza o echipa</a>
+        </div> <!--div col echipe admin-->
+        <div sec:authorize="!hasRole('ROLE_ADMIN')" class="col-12 col-md-6 text-center">
+            <h3>Echipele acestui user</h3>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Nume</th>
+                    <th scope="col">Descriere</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="team: ${echipe_user}">
+                    <td >
+                        <a th:href="@{/team/{id}(id=${team.id})}">
+                            <span th:text="${team.name}"></span>
+                        </a>
+                    </td>
+                    <td th:text="${team.description}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <a sec:authorize="!hasRole('ROLE_SPORTIV')" th:href="@{/create_team}">
+                Creaza o echipa</a>
         </div>
     </div> <!-- div row-->
 </div>  <!-- div container-->
 <div xmlns:th="http://www.thymeleaf.org"  class="container">
     <div class="row">
-        <div class="col-12 col-md-6 text-center">
+        <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-12 col-md-6 text-center">
             <h3>Antrenamente</h3>
             <table class="table">
                 <thead>
@@ -71,12 +117,20 @@
                             </a>
                         </td>
                         <td th:text="${antre.description}"></td>
+                        <td>
+                            <a th:href="@{/sterge_antrenament/{id}(id=${antre.id})}">
+                                <button id="sterge_antrenament" value="" type="button" class="btn btn-danger sterge_echipa" data-bs-toggle="modal" data-bs-target="#stergeEchipa">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
             <a th:href="@{/create_antrenament}">Creeaza un antrenament</a>
         </div> <!-- column div-->
-        <div class="col-12 col-md-6 text-center">
+<!--        <a sec:authorize="hasRole('ROLE_ANTRENOR')" th:href="@{/create_antrenament}">Creeaza un antrenament</a>-->
+        <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-12 col-md-6 text-center">
             <h3>Exercitii</h3>
             <table class="table">
                 <thead>
@@ -96,14 +150,15 @@
                         <td th:text="${exercitiu.description}"></td>
                         <td>
                             <a th:href="@{/sterge_exercitiu/{id}(id=${exercitiu.id})}">
-                            <button id="sterge_echipa" value="" type="button" class="btn btn-danger sterge_echipa" data-bs-toggle="modal" data-bs-target="#stergeEchipa">
+                            <button id="sterge_exercitiu" value="" type="button" class="btn btn-danger sterge_echipa" data-bs-toggle="modal" data-bs-target="#stergeEchipa">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                             </button>
                             </a>
                         </td>
                     </tr>
                 </tbody>
-            </table>';
+            </table>
+            <a th:href="@{/create_exercitiu}">Creeaza un exercitiu</a>
         </div> <!-- column div-->
     </div> <!-- row div-->
 </div> <!--container div-->
