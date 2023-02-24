@@ -6,6 +6,8 @@ import com.example.wetrain.repositories.EchipaRepository;
 import com.example.wetrain.repositories.ExercitiuRepository;
 import com.example.wetrain.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,8 @@ public class DashboardController {
     @Autowired
     private ExercitiuRepository exercitiuRepository;
     @GetMapping("/dashboard")
-    public String register( Model model) {
+    public String register(Model model, Authentication authentication) {
+        model.addAttribute("user", authentication.getAuthorities());
         model.addAttribute("teams", echipaRepository.findAll());
         model.addAttribute("antrenamente", antrenamentRepository.findAll());
         model.addAttribute("exercitii", exercitiuRepository.findAll());

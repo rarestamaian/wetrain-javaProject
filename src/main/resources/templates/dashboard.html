@@ -2,7 +2,9 @@
 <div  xmlns:th="http://www.thymeleaf.org" th:replace="~{/navbar.html}"></div>
 
 <div>dashboard</div>
-<div xmlns:th="http://www.thymeleaf.org"  class="container">
+<div xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org"  class="container">
+    <div sec:authorize="hasRole('ROLE_SPORTIV')" th:text="${user}"></div>
+    <div  th:text="${user}"></div>
     <div class="row">
         <div class="col-12 col-md-6 text-center">
             <h3>Utilizatori</h3>
