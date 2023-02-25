@@ -2,14 +2,18 @@ package com.example.wetrain.controllers;
 
 import com.example.wetrain.models.Antrernament;
 import com.example.wetrain.models.Echipa;
+import com.example.wetrain.models.Exercitiu;
 import com.example.wetrain.repositories.AntrenamentRepository;
 import com.example.wetrain.repositories.EchipaRepository;
 import com.example.wetrain.repositories.ExercitiuRepository;
 import com.example.wetrain.repositories.UserRepository;
+import com.example.wetrain.securingweb.CustomUserDetails;
 import com.example.wetrain.services.TeamService;
+import com.example.wetrain.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +34,8 @@ public class TeamController {
     private ExercitiuRepository exercitiuRepository;
     @Autowired
     private TeamService teamService;
+    @Autowired
+    private UserService userService;
     @GetMapping("/team/{id}")
     public String get_team_details(@PathVariable("id") long id, Model model) {// findById returns an Optional de care tre sa scapi sa ramana foar obiectul User asa ca mai jos sau poti folosi Optional.get()
         Optional<Echipa> echipa_optional = echipaRepository.findById(id);
@@ -40,7 +46,7 @@ public class TeamController {
             List<Antrernament> antrenamente = antrenamentRepository.findAntrenamenteByEchipeId(id);
             List<Antrernament> antrenamente_toate = antrenamentRepository.findAll();
             model.addAttribute("antrenamente", antrenamente);
-            model.addAttribute("antrenamente_toate", antrenamente_toate);
+            model.addAttribute("antrenamente_toate", antrenamente_toate);//this one is for the dropdown to add antrenamente to a team
 //            System.out.println(antrenamente.get(0).toString());
         }
         System.out.println("team get + id  controller called");
@@ -57,6 +63,7 @@ public class TeamController {
         model.addAttribute("team", team);
         List<Antrernament> antrenamente = antrenamentRepository.findAntrenamenteByEchipeId(id);
         model.addAttribute("antrenamente", antrenamente);
+        model.addAttribute("antrenamente_toate", antrenamentRepository.findAll());
 //        System.out.println(team.toString());
         return "team";
     }
@@ -70,6 +77,7 @@ public class TeamController {
                 u -> model.addAttribute("team", u));
         List<Antrernament> antrenamente = antrenamentRepository.findAntrenamenteByEchipeId(id);
         model.addAttribute("antrenamente", antrenamente);
+        model.addAttribute("antrenamente_toate", antrenamentRepository.findAll());
         return "team";
     }
     @GetMapping("/create_team")
@@ -80,18 +88,23 @@ public class TeamController {
     }
     @PostMapping(value = "/create_team", params = "create_team")
     public String create_team_post(@Valid @ModelAttribute Echipa team,
-                                     BindingResult result, Model model) {
+                                   BindingResult result, Model model,
+                                   Authentication authentication) {
         if (result.hasErrors()) {
             return "dashboard";
         }
         //aici sa pui daca userul e antrenor atunci cand creeaza echipa,
         // automat el sa fie in echipa si sa poata baga alti sportivi in echipa
         echipaRepository.save(team);
+        Object principal = authentication.getPrincipal();
+        Long userId = ((CustomUserDetails) principal).getUserId();
+        userService.assignTeamToUser(userId, team.getId());
         model.addAttribute("teams", echipaRepository.findAll());
         model.addAttribute("antrenamente", antrenamentRepository.findAll());
         model.addAttribute("exercitii", exercitiuRepository.findAll());
         model.addAttribute("users", userRepository.findAll());
-        return "dashboard";
+        return "redirect:/dashboard"; // redirect vs just /dashboard = with redirect,
+        // the /dashboard controller gets calles so i don t have to add the model attributes again
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')") // it s a get request so even though the link is absent for other roles, they could still delete users by writing the url. this prevents it
     @GetMapping(value = "/sterge_echipa/{id}")

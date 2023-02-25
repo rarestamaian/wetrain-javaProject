@@ -101,6 +101,14 @@ public String getEmail() {
 //        this.active = active;
 //    }
 
+    public List<Echipa> getEchipe() {
+        return echipe;
+    }
+
+    public void setEchipe(List<Echipa> echipe) {
+        this.echipe = echipe;
+    }
+
     public void setRole(String role) {
         this.role = role;
     }

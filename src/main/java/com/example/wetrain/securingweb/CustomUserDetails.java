@@ -64,7 +64,7 @@ public class CustomUserDetails implements UserDetails {
         return true;
     }
 
-    public Long getUserId() {// this method gets user id
+    public Long getUserId() {// this method gets user id and can be used in java or in thymeleaf see profile link in dashboard or dashboard get controller
         return this.user.getId();
     }
 }

@@ -42,7 +42,7 @@ public class AntrenamentController {
                 //mai jos faci cu exercitiile din acest antrenament
                 List<Exercitiu> exercitii = exercitiuRepository.findExercitiiByAntrenamenteId(id);
                 model.addAttribute("exercitii", exercitii);
-                System.out.println(exercitii.get(0).toString());
+//                System.out.println(exercitii.get(0).toString());
             }
             System.out.println("antre get + id  controller called");
             return "antrenament";

@@ -3,8 +3,8 @@
 
 <div>dashboard</div>
 <div xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org"  class="container">
-    <div sec:authorize="hasRole('ROLE_SPORTIV')" th:text="${user}"></div>
-    <div  th:text="${user}"></div>
+<!--    <div sec:authorize="hasRole('ROLE_SPORTIV')" th:text="${user}"></div>-->
+<!--    <div  th:text="${user}"></div>-->
     <div class="row">
         <div  sec:authorize="hasRole('ROLE_ADMIN')" class="col-12 col-md-6 text-center">
             <h3>Utilizatori</h3>
@@ -92,7 +92,7 @@
                 </tr>
                 </tbody>
             </table>
-            <a sec:authorize="!hasRole('ROLE_SPORTIV')" th:href="@{/create_team}">
+            <a sec:authorize="hasRole('ROLE_ANTRENOR')" th:href="@{/create_team}">
                 Creaza o echipa</a>
         </div>
     </div> <!-- div row-->
@@ -129,7 +129,7 @@
             </table>
             <a th:href="@{/create_antrenament}">Creeaza un antrenament</a>
         </div> <!-- column div-->
-<!--        <a sec:authorize="hasRole('ROLE_ANTRENOR')" th:href="@{/create_antrenament}">Creeaza un antrenament</a>-->
+        <a sec:authorize="hasRole('ROLE_ANTRENOR')" th:href="@{/create_antrenament}">Creeaza un antrenament</a>
         <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-12 col-md-6 text-center">
             <h3>Exercitii</h3>
             <table class="table">
@@ -160,6 +160,8 @@
             </table>
             <a th:href="@{/create_exercitiu}">Creeaza un exercitiu</a>
         </div> <!-- column div-->
+        <a sec:authorize="hasRole('ROLE_ANTRENOR')"
+           th:href="@{/create_exercitiu}">Creeaza un exercitiu</a>
     </div> <!-- row div-->
 </div> <!--container div-->
 <div xmlns:th="http://www.thymeleaf.org" th:replace="~{/footer.html:: footer}"></div>
