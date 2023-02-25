@@ -128,6 +128,7 @@ public class TeamController {
 //        model.addAttribute("antrenamente", antrenamentRepository.findAll());
 //        model.addAttribute("exercitii", exercitiuRepository.findAll());
 //        model.addAttribute("users", userRepository.findAll());
-        return "redirect:/dashboard";
+//        return "redirect:/dashboard";
+        return "redirect:/team/" + team_id;
     }
 }
