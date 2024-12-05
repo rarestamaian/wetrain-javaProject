@@ -13,10 +13,12 @@ public class Echipa {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
     @Column(nullable = false)// the column cannot be null
     private String name;
 
     private String description;
+
     @ManyToMany
     @JoinTable(name = "teams_antrenament", // this is the owner side bc here we configure the ralationship
             joinColumns = { @JoinColumn(name = "team_id") },
@@ -24,7 +26,7 @@ public class Echipa {
     private List<Antrernament> antrenamente = new ArrayList();//list is ordered vs Set is unordered and distinct elements
 
     @JsonIgnore// this annotation stops the circular reference problem
-    @ManyToMany(mappedBy = "echipe") //this is the raget side
+    @ManyToMany(mappedBy = "echipe") //this is the target side
     private List<User> utilizatori = new ArrayList();
     public List<Antrernament> getAntrenamente() {
         return antrenamente;

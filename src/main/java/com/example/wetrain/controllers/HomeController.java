@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
     @Autowired
     private UserRepository userRepo;
-//    @RequestParam means it is a parameter from the GET or POST request - noi nu am folosit deocamdata
+//    @RequestParam means it is a parameter from the GET or POST request - haven't used it yet
     @GetMapping({"/", "/index"})
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("index");

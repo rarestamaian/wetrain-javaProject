@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Entity
+@Entity // JPA entity = mapped to a table in the db
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,14 +15,14 @@ public class User {
     private String username;
     @Column(nullable = false)
     private String password;
-    private String role = ""; //doar un singur rol poate avea un user
+    private String role = ""; //one user can have a single role
     private String description;
     private String phone;
     @Column(nullable = false)
     private String email;
     //    private int active;
     @ManyToMany
-    @JoinTable(name = "users_teams", // this is the owner side bc here we configure the ralationship
+    @JoinTable(name = "users_teams", // this is the owner side bc here we configure the relationship
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "team_id") })
     private List<Echipa> echipe = new ArrayList();//list is ordered vs Set is unordered and distinct elements

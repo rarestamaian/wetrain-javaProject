@@ -17,7 +17,7 @@ public class Antrernament {
     private String description;
 
     @JsonIgnore// this annotation stops the circular reference problem
-    @ManyToMany(mappedBy = "antrenamente") //this is the raget side
+    @ManyToMany(mappedBy = "antrenamente") //this is the target side
     private List<Echipa> echipe = new ArrayList();
 
     @ManyToMany

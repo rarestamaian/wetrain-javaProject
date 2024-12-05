@@ -8,7 +8,7 @@ import org.springframework.security.authentication.jaas.JaasAuthenticationCallba
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+//data access layer for the User model
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query(value="SELECT * FROM user u WHERE u.username = ?1", nativeQuery = true)
